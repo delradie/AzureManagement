@@ -8,4 +8,4 @@ Whilst the actual API Management control RESTful API is very well documented by 
 
 This code uses Azure Active Direcory App registration to get a bearer token that can then be used when accessing the management services
 
-More extenside documentation will be provided shortly, but in the meantime if you have any questions ping me on twitter [@delradie](https://twitter.com/delradie) or via http://delradiesdev.blogspot.co.uk/
+More extensive documentation will be provided shortly, but in the meantime if you have any questions ping me on twitter [@delradie](https://twitter.com/delradie) or via http://delradiesdev.blogspot.co.uk/
