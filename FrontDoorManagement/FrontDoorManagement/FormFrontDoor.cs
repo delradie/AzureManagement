@@ -22,82 +22,73 @@ namespace FrontDoorManagement
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if(!String.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["DefaultSubscriptionId"]))
+            if (!String.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["DefaultSubscriptionId"]))
             {
-                _subscriptionId = ConfigurationManager.AppSettings["DefaultSubscriptionId"];
+                this._subscriptionId = ConfigurationManager.AppSettings["DefaultSubscriptionId"];
             }
 
             if (!String.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["DefaultAadTenant"]))
             {
-                _aadTenant = ConfigurationManager.AppSettings["DefaultAadTenant"];
+                this._aadTenant = ConfigurationManager.AppSettings["DefaultAadTenant"];
             }
 
             if (!String.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["DefaultClientId"]))
             {
-                _clientId = ConfigurationManager.AppSettings["DefaultClientId"];
+                this._clientId = ConfigurationManager.AppSettings["DefaultClientId"];
             }
 
             if (!String.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["DefaultClientSecret"]))
             {
-                _clientSecret = ConfigurationManager.AppSettings["DefaultClientSecret"];
+                this._clientSecret = ConfigurationManager.AppSettings["DefaultClientSecret"];
             }
 
-            if(!String.IsNullOrWhiteSpace(_clientId) && !String.IsNullOrWhiteSpace(_clientSecret))
+            if (!String.IsNullOrWhiteSpace(this._clientId) && !String.IsNullOrWhiteSpace(this._clientSecret))
             {
-                _managementAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.ServicePrincipal;
+                this._managementAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.ServicePrincipal;
             }
-            else if (!String.IsNullOrWhiteSpace(_clientId))
+            else if (!String.IsNullOrWhiteSpace(this._clientId))
             {
-                _managementAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.Login;
+                this._managementAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.Login;
             }
             else
             {
-                _managementAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.ManagedIdentity;
+                this._managementAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.ManagedIdentity;
             }
 
             SetUiSate();
-        }
-
-        private async void buttonLoadFrontDoors_Click(object sender, EventArgs e)
-        {
-            this.dataGridViewFrontDoors.DataSource = null;
-
-            IEnumerable<FrontDoorModel> FrontDoorRecords = await this._managementHandler.GetFrontEnds();
-
-            this.dataGridViewFrontDoors.DataSource = FrontDoorRecords;
         }
 
         private void SetUiSate()
         {
             Boolean Valid = true;
 
-            if (String.IsNullOrWhiteSpace(_subscriptionId))
+            if (String.IsNullOrWhiteSpace(this._subscriptionId))
             {
                 Valid = false;
             }
             else
             {
-                switch(_managementAuthenticationMethod)
+                switch (this._managementAuthenticationMethod)
                 {
                     case ActiveDirectoryAuthentication.AuthMethod.ServicePrincipal:
-                        Valid = !String.IsNullOrWhiteSpace(_clientId) && !String.IsNullOrWhiteSpace(_clientSecret);
+                        Valid = !String.IsNullOrWhiteSpace(this._clientId) && !String.IsNullOrWhiteSpace(this._clientSecret);
                         break;
                     case ActiveDirectoryAuthentication.AuthMethod.Login:
-                        Valid = !String.IsNullOrWhiteSpace(_clientId);
+                        Valid = !String.IsNullOrWhiteSpace(this._clientId);
                         break;
                 }
             }
 
-            if(Valid)
+            if (Valid)
             {
-                _managementHandler = new FrontDoorManagement(_subscriptionId, _managementAuthenticationMethod, _aadTenant, _clientId, _clientSecret);
-                tabControlAreas.Enabled = true;
+                this._managementHandler = new FrontDoorManagement(this._subscriptionId, this._managementAuthenticationMethod, this._aadTenant, this._clientId, this._clientSecret);
+                this.tabControlAreas.Enabled = true;
             }
             else
             {
-                tabControlAreas.Enabled = false;
+                this.tabControlAreas.Enabled = false;
             }
-            
+
         }
 
         private void OptionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -111,16 +102,46 @@ namespace FrontDoorManagement
                 AadTenant = _aadTenant
             };
 
-            if(OptionForm.ShowDialog(this) == DialogResult.OK)
+            if (OptionForm.ShowDialog(this) == DialogResult.OK)
             {
-                _managementAuthenticationMethod = OptionForm.SelectedAuthenticationMethod;
-                _subscriptionId = OptionForm.SubscriptionId;
-                _clientId = OptionForm.ClientId;
-                _clientSecret = OptionForm.ClientSecret;
-                _aadTenant = OptionForm.AadTenant;
+                this._managementAuthenticationMethod = OptionForm.SelectedAuthenticationMethod;
+                this._subscriptionId = OptionForm.SubscriptionId;
+                this._clientId = OptionForm.ClientId;
+                this._clientSecret = OptionForm.ClientSecret;
+                this._aadTenant = OptionForm.AadTenant;
 
                 SetUiSate();
             }
         }
+
+        #region Front Doors
+        private async void buttonLoadFrontDoors_Click(object sender, EventArgs e)
+        {
+            this.dataGridViewFrontDoors.DataSource = null;
+
+            IEnumerable<FrontDoorModel> FrontDoorRecords = await this._managementHandler.GetFrontDoors();
+
+            this.dataGridViewFrontDoors.DataSource = FrontDoorRecords;
+        }
+
+        private void DataGridViewFrontDoors_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            this.dataGridViewFrontEnds.DataSource = null;
+
+            DataGridViewRow SelectedRow = this.dataGridViewFrontDoors.Rows[e.RowIndex];
+
+            FrontDoorModel SelectedFrontDoor = SelectedRow?.DataBoundItem as FrontDoorModel;
+
+            if (SelectedFrontDoor != null)
+            {
+                this.dataGridViewFrontEnds.DataSource = SelectedFrontDoor.FrontendEndpoints;
+            }
+        }
+        #endregion
+
+        #region Front Ends
+       
+        #endregion
+
     }
 }

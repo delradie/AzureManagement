@@ -35,11 +35,20 @@ namespace FrontDoorManagement
             return Client;
         }
 
-        public async Task<IEnumerable<FrontDoorModel>> GetFrontEnds()
+        public async Task<IEnumerable<FrontDoorModel>> GetFrontDoors()
         {
             FrontDoorManagementClient Interface = await this.GetClientInstance();
 
             IEnumerable<FrontDoorModel> Output = await Interface.FrontDoors.ListAsync();
+
+            return Output?.ToList();
+        }
+
+        public async Task<IEnumerable<FrontendEndpoint>> GetFrontEnds(String resourceGroup, String frontDoor)
+        {
+            FrontDoorManagementClient Interface = await this.GetClientInstance();
+
+            IEnumerable<FrontendEndpoint> Output = await Interface.FrontendEndpoints.ListByFrontDoorAsync(resourceGroup, frontDoor);
 
             return Output?.ToList();
         }

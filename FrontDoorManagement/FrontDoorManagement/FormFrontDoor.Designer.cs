@@ -32,11 +32,15 @@
             this.tabPageFrontDoors = new System.Windows.Forms.TabPage();
             this.dataGridViewFrontDoors = new System.Windows.Forms.DataGridView();
             this.buttonLoadFrontDoors = new System.Windows.Forms.Button();
+            this.tabPageFrontEnds = new System.Windows.Forms.TabPage();
+            this.dataGridViewFrontEnds = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlAreas.SuspendLayout();
             this.tabPageFrontDoors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFrontDoors)).BeginInit();
+            this.tabPageFrontEnds.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFrontEnds)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +50,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlAreas.Controls.Add(this.tabPageFrontDoors);
+            this.tabControlAreas.Controls.Add(this.tabPageFrontEnds);
             this.tabControlAreas.Enabled = false;
             this.tabControlAreas.Location = new System.Drawing.Point(0, 29);
             this.tabControlAreas.Name = "tabControlAreas";
@@ -75,6 +80,7 @@
             this.dataGridViewFrontDoors.Name = "dataGridViewFrontDoors";
             this.dataGridViewFrontDoors.Size = new System.Drawing.Size(776, 352);
             this.dataGridViewFrontDoors.TabIndex = 1;
+            this.dataGridViewFrontDoors.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewFrontDoors_CellMouseDoubleClick);
             // 
             // buttonLoadFrontDoors
             // 
@@ -86,6 +92,28 @@
             this.buttonLoadFrontDoors.Text = "Load";
             this.buttonLoadFrontDoors.UseVisualStyleBackColor = true;
             this.buttonLoadFrontDoors.Click += new System.EventHandler(this.buttonLoadFrontDoors_Click);
+            // 
+            // tabPageFrontEnds
+            // 
+            this.tabPageFrontEnds.Controls.Add(this.dataGridViewFrontEnds);
+            this.tabPageFrontEnds.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFrontEnds.Name = "tabPageFrontEnds";
+            this.tabPageFrontEnds.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageFrontEnds.Size = new System.Drawing.Size(792, 395);
+            this.tabPageFrontEnds.TabIndex = 1;
+            this.tabPageFrontEnds.Text = "Front Ends";
+            this.tabPageFrontEnds.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewFrontEnds
+            // 
+            this.dataGridViewFrontEnds.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewFrontEnds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFrontEnds.Location = new System.Drawing.Point(8, 6);
+            this.dataGridViewFrontEnds.Name = "dataGridViewFrontEnds";
+            this.dataGridViewFrontEnds.Size = new System.Drawing.Size(776, 381);
+            this.dataGridViewFrontEnds.TabIndex = 3;
             // 
             // menuStrip1
             // 
@@ -113,11 +141,13 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormFrontDoor";
-            this.Text = "Form1";
+            this.Text = "Azure Front Door Status";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControlAreas.ResumeLayout(false);
             this.tabPageFrontDoors.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFrontDoors)).EndInit();
+            this.tabPageFrontEnds.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFrontEnds)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -133,6 +163,8 @@
         private System.Windows.Forms.DataGridView dataGridViewFrontDoors;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPageFrontEnds;
+        private System.Windows.Forms.DataGridView dataGridViewFrontEnds;
     }
 }
 
