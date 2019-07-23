@@ -135,7 +135,13 @@ namespace FrontDoorManagement
             if (SelectedFrontDoor != null)
             {
                 this.dataGridViewFrontEnds.DataSource = SelectedFrontDoor.FrontendEndpoints;
+
+                this.dataGridViewBackEnds.DataSource = SelectedFrontDoor.BackendPools;
+
+                this.dataGridViewRules.DataSource = SelectedFrontDoor.RoutingRules;
             }
+
+            tabControlAreas.SelectedIndex = 1;
         }
         #endregion
 
