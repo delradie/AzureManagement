@@ -20,7 +20,7 @@ namespace FrontDoorManagement
             set
             {
                 this._selectedAuthenticationMethod = value;
-                SetUi();
+                SetUi(value);
             }
         }
         public String SubscriptionId
@@ -84,29 +84,29 @@ namespace FrontDoorManagement
             }
         }
 
-        private void SetUi()
+        private void SetUi(ActiveDirectoryAuthentication.AuthMethod? authenticationMethod)
         {
-            textBoxAadTenant.Enabled = (_selectedAuthenticationMethod != ActiveDirectoryAuthentication.AuthMethod.ManagedIdentity);
-            textBoxClientId.Enabled = (_selectedAuthenticationMethod != ActiveDirectoryAuthentication.AuthMethod.ManagedIdentity);
-            textBoxClientSecret.Enabled = (_selectedAuthenticationMethod == ActiveDirectoryAuthentication.AuthMethod.ServicePrincipal);
+            authenticationMethod = authenticationMethod ?? _selectedAuthenticationMethod;
+
+            textBoxAadTenant.Enabled = (authenticationMethod != ActiveDirectoryAuthentication.AuthMethod.ManagedIdentity);
+            textBoxClientId.Enabled = (authenticationMethod != ActiveDirectoryAuthentication.AuthMethod.ManagedIdentity);
+            textBoxClientSecret.Enabled = (authenticationMethod == ActiveDirectoryAuthentication.AuthMethod.ServicePrincipal);
         }
 
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if(radioButtonAuthLogIn.Checked)
             {
-                _selectedAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.Login;
+                SelectedAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.Login;
             }
-            if (radioButtonAuthServicePrincipal.Checked)
+            else if (radioButtonAuthServicePrincipal.Checked)
             {
-                _selectedAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.ServicePrincipal;
+                SelectedAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.ServicePrincipal;
             }
             else
             {
-                _selectedAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.ManagedIdentity;
+                SelectedAuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.ManagedIdentity;
             }
-
-            SetUi();
         }
 
         private Boolean ValidateForm()
@@ -131,6 +131,24 @@ namespace FrontDoorManagement
             {
                 return true;
             }
+        }
+
+        private void FormOptions_Load(object sender, EventArgs e)
+        {
+            switch(_selectedAuthenticationMethod)
+            {
+                case ActiveDirectoryAuthentication.AuthMethod.Login:
+                    radioButtonAuthLogIn.Checked = true;
+                    break;
+                case ActiveDirectoryAuthentication.AuthMethod.ServicePrincipal:
+                    radioButtonAuthServicePrincipal.Checked = true;
+                    break;
+                default:
+                    radioButtonAuthManagedIdentity.Checked = true;
+                    break;
+            }
+
+            SetUi(null);
         }
     }
 }

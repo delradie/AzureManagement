@@ -154,6 +154,7 @@
             this.radioButtonAuthServicePrincipal.TabIndex = 2;
             this.radioButtonAuthServicePrincipal.Text = "Use Service Principal";
             this.radioButtonAuthServicePrincipal.UseVisualStyleBackColor = true;
+            this.radioButtonAuthServicePrincipal.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // radioButtonAuthLogIn
             // 
@@ -164,6 +165,7 @@
             this.radioButtonAuthLogIn.TabIndex = 2;
             this.radioButtonAuthLogIn.Text = "Log In";
             this.radioButtonAuthLogIn.UseVisualStyleBackColor = true;
+            this.radioButtonAuthLogIn.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // radioButtonAuthManagedIdentity
             // 
@@ -214,6 +216,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FormOptions";
             this.Text = "Options";
+            this.Load += new System.EventHandler(this.FormOptions_Load);
             this.groupBoxAuthentication.ResumeLayout(false);
             this.groupBoxAuthentication.PerformLayout();
             this.ResumeLayout(false);
