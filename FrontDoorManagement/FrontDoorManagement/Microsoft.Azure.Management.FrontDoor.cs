@@ -14,6 +14,8 @@ namespace FrontDoorManagement
         private readonly ActiveDirectoryAuthentication _authenticationHandler;
         private readonly String _subscriptionId;
 
+        public String LastError { get; private set; }
+
         public FrontDoorManagement(String subscriptionId, ActiveDirectoryAuthentication.AuthMethod authMethod, String aadTenant, String clientId, String clientSecret) : this(subscriptionId, new ActiveDirectoryAuthentication(authMethod, aadTenant, clientId, clientSecret))
         { }
 
@@ -37,7 +39,7 @@ namespace FrontDoorManagement
 
         public async Task<IEnumerable<FrontDoorModel>> GetFrontDoors()
         {
-            FrontDoorManagementClient Interface = await this.GetClientInstance();
+            FrontDoorManagementClient Interface = await GetClientInstance();
 
             IEnumerable<FrontDoorModel> Output = await Interface.FrontDoors.ListAsync();
 
@@ -46,11 +48,44 @@ namespace FrontDoorManagement
 
         public async Task<IEnumerable<FrontendEndpoint>> GetFrontEnds(String resourceGroup, String frontDoor)
         {
-            FrontDoorManagementClient Interface = await this.GetClientInstance();
+            FrontDoorManagementClient Interface = await GetClientInstance();
 
             IEnumerable<FrontendEndpoint> Output = await Interface.FrontendEndpoints.ListByFrontDoorAsync(resourceGroup, frontDoor);
 
             return Output?.ToList();
+        }
+
+        public async Task<Boolean> CreateFrontEnd(String resourceGroup, String frontDoor, String endpointName, String hostName)
+        {
+            FrontDoorManagementClient Interface = await GetClientInstance();
+
+            FrontendEndpoint Parameters = new FrontendEndpoint()
+            {
+                HostName = hostName,
+                Name = endpointName,
+                SessionAffinityEnabledState = "Enabled",
+                WebApplicationFirewallPolicyLink = null,
+            };
+
+            AzureOperationResponse<FrontendEndpoint> Response;
+
+            try
+            {
+                Response = await Interface.FrontendEndpoints.CreateOrUpdateWithHttpMessagesAsync(resourceGroup, frontDoor, endpointName, Parameters);
+            }
+            catch (ErrorResponseException exc)
+            {
+                LastError = exc.Response?.Content;
+
+                if(String.IsNullOrWhiteSpace(LastError))
+                {
+                    LastError = exc.ToString();
+                }
+
+                return false;
+            }
+
+            return (Response.Response.IsSuccessStatusCode);
         }
     }
 

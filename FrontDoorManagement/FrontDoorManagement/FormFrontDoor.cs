@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace FrontDoorManagement
@@ -126,6 +127,9 @@ namespace FrontDoorManagement
 
         private void DataGridViewFrontDoors_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            if (e.RowIndex < 0)
+                return;
+
             this.dataGridViewFrontEnds.DataSource = null;
 
             DataGridViewRow SelectedRow = this.dataGridViewFrontDoors.Rows[e.RowIndex];
@@ -139,15 +143,38 @@ namespace FrontDoorManagement
                 this.dataGridViewBackEnds.DataSource = SelectedFrontDoor.BackendPools;
 
                 this.dataGridViewRules.DataSource = SelectedFrontDoor.RoutingRules;
+
+                textBoxAddFrontDoor.Text = SelectedFrontDoor.Name;                
             }
 
             tabControlAreas.SelectedIndex = 1;
         }
         #endregion
 
-        #region Front Ends
-       
-        #endregion
+        #region Front End Add
+        private async void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            String ResourceGroup = textBoxAddResourceGroup.Text;
+            String FrontDoor = textBoxAddFrontDoor.Text;
+            String EndpointName = textBoxAddEndpointName.Text;
+            String HostName = textBoxAddHostName.Text;
 
+            Boolean Result = await this._managementHandler.CreateFrontEnd(ResourceGroup, FrontDoor, EndpointName, HostName);
+
+            if(Result)
+            {
+                textBoxOutput.Text = "Front End Created";
+            }
+            else
+            {
+                textBoxOutput.Text = "Front End Creation Failed";
+
+                if(!String.IsNullOrWhiteSpace(this._managementHandler.LastError))
+                {
+                    textBoxOutput.Text += Environment.NewLine + this._managementHandler.LastError;
+                }
+            }
+        }
+        #endregion
     }
 }
