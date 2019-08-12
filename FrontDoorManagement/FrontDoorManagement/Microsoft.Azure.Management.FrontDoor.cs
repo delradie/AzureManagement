@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace FrontDoorManagement
 {
-    public class FrontDoorManagement
+    public class FrontDoorManagementSdk
     {
         private readonly ActiveDirectoryAuthentication _authenticationHandler;
         private readonly String _subscriptionId;
 
         public String LastError { get; private set; }
 
-        public FrontDoorManagement(String subscriptionId, ActiveDirectoryAuthentication.AuthMethod authMethod, String aadTenant, String clientId, String clientSecret) : this(subscriptionId, new ActiveDirectoryAuthentication(authMethod, aadTenant, clientId, clientSecret))
+        public FrontDoorManagementSdk(String subscriptionId, ActiveDirectoryAuthentication.AuthMethod authMethod, String aadTenant, String clientId, String clientSecret) : this(subscriptionId, new ActiveDirectoryAuthentication(authMethod, aadTenant, clientId, clientSecret))
         { }
 
-        public FrontDoorManagement(String subscriptionId, ActiveDirectoryAuthentication authenticationHandler)
+        public FrontDoorManagementSdk(String subscriptionId, ActiveDirectoryAuthentication authenticationHandler)
         {
             this._authenticationHandler = authenticationHandler;
             this._subscriptionId = subscriptionId;
@@ -75,14 +75,34 @@ namespace FrontDoorManagement
             }
             catch (ErrorResponseException exc)
             {
-                LastError = exc.Response?.Content;
+                this.LastError = exc.Response?.Content;
 
-                if(String.IsNullOrWhiteSpace(LastError))
+                if (String.IsNullOrWhiteSpace(this.LastError))
                 {
-                    LastError = exc.ToString();
+                    this.LastError = exc.ToString();
                 }
 
                 return false;
+            }
+
+            return (Response.Response.IsSuccessStatusCode);
+        }
+
+        public async Task<Boolean> EnableCustomHttps(String resourceGroup, String frontDoor, String endpointName, String vaultId, String secretName, String secretVersion)
+        {
+            CustomHttpsConfiguration EndpointHttpsConfiguration = new CustomHttpsConfiguration();
+
+            EndpointHttpsConfiguration.CertificateSource = "AzureKeyVault";
+            EndpointHttpsConfiguration.Vault = new KeyVaultCertificateSourceParametersVault(vaultId);
+            EndpointHttpsConfiguration.SecretName = secretName;
+            EndpointHttpsConfiguration.SecretVersion = secretVersion;
+            EndpointHttpsConfiguration.ProtocolType = "ServerNameIndication";
+
+            AzureOperationResponse Response = null;
+
+            using (FrontDoorManagementClient Interface = await GetClientInstance())
+            {
+                Response = await Interface.FrontendEndpoints.EnableHttpsWithHttpMessagesAsync(resourceGroup, frontDoor, endpointName, EndpointHttpsConfiguration);
             }
 
             return (Response.Response.IsSuccessStatusCode);

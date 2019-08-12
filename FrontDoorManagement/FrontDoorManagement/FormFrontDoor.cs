@@ -9,7 +9,7 @@ namespace FrontDoorManagement
 {
     public partial class FormFrontDoor : Form
     {
-        private FrontDoorManagement _managementHandler;
+        private FrontDoorManagementSdk _managementHandler;
         private String _subscriptionId;
         private ActiveDirectoryAuthentication.AuthMethod _managementAuthenticationMethod;
         private String _aadTenant;
@@ -82,7 +82,7 @@ namespace FrontDoorManagement
 
             if (Valid)
             {
-                this._managementHandler = new FrontDoorManagement(this._subscriptionId, this._managementAuthenticationMethod, this._aadTenant, this._clientId, this._clientSecret);
+                this._managementHandler = new FrontDoorManagementSdk(this._subscriptionId, this._managementAuthenticationMethod, this._aadTenant, this._clientId, this._clientSecret);
                 this.tabControlAreas.Enabled = true;
             }
             else
