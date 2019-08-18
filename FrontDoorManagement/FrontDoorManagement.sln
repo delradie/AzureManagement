@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontDoorManagement", "Fron
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontDoorManagementLibrary", "FrontDoorManagementLibrary\FrontDoorManagementLibrary.csproj", "{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddCustomFrontDoorHostName", "AddCustomFrontDoorHostName\AddCustomFrontDoorHostName.csproj", "{02442F71-1112-4DF7-A503-3C74F3F5B043}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02442F71-1112-4DF7-A503-3C74F3F5B043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02442F71-1112-4DF7-A503-3C74F3F5B043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02442F71-1112-4DF7-A503-3C74F3F5B043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02442F71-1112-4DF7-A503-3C74F3F5B043}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
