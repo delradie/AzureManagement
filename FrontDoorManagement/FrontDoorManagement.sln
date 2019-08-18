@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontDoorManagement", "FrontDoorManagement\FrontDoorManagement.csproj", "{E3F1BAD5-278E-4B6D-A526-157F1A3D60E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontDoorManagementLibrary", "FrontDoorManagementLibrary\FrontDoorManagementLibrary.csproj", "{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E3F1BAD5-278E-4B6D-A526-157F1A3D60E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3F1BAD5-278E-4B6D-A526-157F1A3D60E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3F1BAD5-278E-4B6D-A526-157F1A3D60E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

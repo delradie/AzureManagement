@@ -63,7 +63,6 @@ namespace FrontDoorManagement
         private async Task<String> GetBearerTokenFromServicePrincipal(String resource)
         {
             String AadAuthority = $"https://login.microsoftonline.com/{_aadTenant}";
-            IPlatformParameters Params = new PlatformParameters(PromptBehavior.Auto, null);
             ClientCredential ClientCred = new ClientCredential(_clientId, _clientSecret);
 
             AuthenticationContext AuthContext = new AuthenticationContext(AadAuthority);
