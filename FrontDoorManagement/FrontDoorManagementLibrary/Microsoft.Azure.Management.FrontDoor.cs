@@ -67,11 +67,15 @@ namespace FrontDoorManagement
                 WebApplicationFirewallPolicyLink = null,
             };
 
-            AzureOperationResponse<FrontendEndpoint> Response;
+            AzureOperationResponse<FrontDoorModel> Response;
 
             try
             {
-                Response = await Interface.FrontendEndpoints.CreateOrUpdateWithHttpMessagesAsync(resourceGroup, frontDoor, endpointName, Parameters);
+                FrontDoorModel TargetFrontDoor = Interface.FrontDoors.Get(resourceGroup, frontDoor);
+
+                TargetFrontDoor.FrontendEndpoints.Add(Parameters);
+
+                Response = await Interface.FrontDoors.CreateOrUpdateWithHttpMessagesAsync(resourceGroup, frontDoor, TargetFrontDoor);
             }
             catch (ErrorResponseException exc)
             {
