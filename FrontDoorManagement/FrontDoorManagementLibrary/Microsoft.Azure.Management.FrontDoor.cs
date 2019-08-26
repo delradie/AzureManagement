@@ -71,6 +71,7 @@ namespace FrontDoorManagement
 
             try
             {
+                //Add the frontend by pulling down and reuploading the full config for the frontdoor
                 FrontDoorModel TargetFrontDoor = Interface.FrontDoors.Get(resourceGroup, frontDoor);
 
                 TargetFrontDoor.FrontendEndpoints.Add(Parameters);

@@ -10,6 +10,19 @@ namespace AddCustomFrontDoorHostName
         {
             FrontDoorManagement.ActiveDirectoryAuthentication.AuthMethod AuthenticationMethod = ActiveDirectoryAuthentication.AuthMethod.ServicePrincipal;
 
+#if DEFAULTVALUES
+            Dictionary<String, String> Parameters = new Dictionary<String, String>()
+            {
+                                {"SubscriptionId","XXXXX" },
+                {"AddTenant","XXXXX" },
+                {"ClientId","XXXXX" },
+                {"ClientSecret","XXXXX" },
+                {"ResourceGroup","XXXXX" },
+                {"FrontDoor","XXXXX" },
+                {"EndpointName","XXXXX" },
+                {"HostName","XXXXX" }
+            };
+#else
             List<String> ParameterNames = new List<String>()
             {
                 "SubscriptionId",
@@ -24,9 +37,9 @@ namespace AddCustomFrontDoorHostName
 
             Dictionary<String, String> Parameters = new Dictionary<String, String>();
 
-            foreach (KeyValuePair<String, String> Parameter in Parameters)
+            foreach (String Parameter in ParameterNames)
             {
-                Console.WriteLine($"{Parameter.Key}:");
+                Console.WriteLine($"{Parameter}:");
 
                 String Input = String.Empty;
                 do
@@ -34,8 +47,11 @@ namespace AddCustomFrontDoorHostName
                     Input = Console.ReadLine();
                 } while (String.IsNullOrWhiteSpace(Input));
 
-                Parameters.Add(Parameter.Key, Input.Trim());
+                Parameters.Add(Parameter, Input.Trim());
             }
+
+
+#endif
 
             try
             {
@@ -46,7 +62,7 @@ namespace AddCustomFrontDoorHostName
                 Boolean OperationResult = ManagementInterface.CreateFrontEnd(Parameters["ResourceGroup"],
                     Parameters["FrontDoor"], Parameters["EndpointName"], Parameters["HostName"]).Result;
 
-                if(OperationResult)
+                if (OperationResult)
                 {
                     Console.WriteLine("Endpoint created succesfully");
                 }
@@ -55,7 +71,7 @@ namespace AddCustomFrontDoorHostName
                     Console.WriteLine("Filed Endpoint creation");
                 }
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 Console.WriteLine(exc.ToString());
             }
