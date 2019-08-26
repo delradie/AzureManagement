@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontDoorManagement", "FrontDoorManagement\FrontDoorManagement.csproj", "{E3F1BAD5-278E-4B6D-A526-157F1A3D60E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontDoorManagementLibrary", "FrontDoorManagementLibrary\FrontDoorManagementLibrary.csproj", "{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddCustomFrontDoorHostName", "AddCustomFrontDoorHostName\AddCustomFrontDoorHostName.csproj", "{02442F71-1112-4DF7-A503-3C74F3F5B043}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3F1BAD5-278E-4B6D-A526-157F1A3D60E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3F1BAD5-278E-4B6D-A526-157F1A3D60E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3F1BAD5-278E-4B6D-A526-157F1A3D60E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3F1BAD5-278E-4B6D-A526-157F1A3D60E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCB287A4-62AB-4D81-910E-ADF568ABEEDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02442F71-1112-4DF7-A503-3C74F3F5B043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02442F71-1112-4DF7-A503-3C74F3F5B043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02442F71-1112-4DF7-A503-3C74F3F5B043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02442F71-1112-4DF7-A503-3C74F3F5B043}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A1C12BD-1720-41FA-9D82-9CCF32D0E755}
+	EndGlobalSection
+EndGlobal
