@@ -1,3 +1,6 @@
+using Azure.Core;
+using Azure.ResourceManager.Logic;
+
 using Microsoft.Extensions.Options;
 
 using System.Configuration;
@@ -21,9 +24,34 @@ namespace LogicWorkflowManagement
             textBoxOut.Clear();
 
             if (String.IsNullOrWhiteSpace(textBoxSubscriptionId.Text) ||
-                String.IsNullOrWhiteSpace(textBoxResourceGroup.Text))
+                String.IsNullOrWhiteSpace(textBoxResourceGroup.Text) ||
+                String.IsNullOrWhiteSpace(textBoxAuthTenant.Text))
             {
                 return;
+            }
+
+            TokenCredential ManagementCredential = CredentialHelper.GetCredential(textBoxAuthTenant.Text, textBoxAuthAppId.Text, textBoxAuthAppKey.Text);
+
+            LogicAppInterface ManagementInterface = new LogicAppInterface(textBoxSubscriptionId.Text, textBoxResourceGroup.Text, ManagementCredential);
+
+            LogicWorkflowCollection LogicApps = ManagementInterface.ListLogicApps();
+
+            if(LogicApps is null)
+            {
+                textBoxOut.Text = "Null Return";
+            }
+            else if(LogicApps.Count() == 0)
+            {
+                textBoxOut.Text = "No Logic Apps Returned";
+            }
+            else
+            {
+                textBoxOut.Text = $"{LogicApps.Count()} Logic Apps Returned:{Environment.NewLine + Environment.NewLine}";
+
+                foreach (LogicWorkflowResource LogicApp in LogicApps)
+                {
+                    textBoxOut.Text += $"{LogicApp.Id} : {LogicApp.Data.Name}{Environment.NewLine}";
+                }
             }
         }
 
