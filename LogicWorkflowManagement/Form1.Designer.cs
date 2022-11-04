@@ -221,6 +221,7 @@
             this.buttonEditWorkflow.TabIndex = 17;
             this.buttonEditWorkflow.Text = "Edit";
             this.buttonEditWorkflow.UseVisualStyleBackColor = true;
+            this.buttonEditWorkflow.Click += new System.EventHandler(this.buttonEditWorkflow_Click);
             // 
             // Form1
             // 

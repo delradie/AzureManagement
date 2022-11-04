@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LogicWorkflowManagement
 {
-    internal class LogicAppInterface
+    public class LogicAppInterface
     {
         private String _subscriptionId;
         private String _resourceGroup;
@@ -54,11 +54,6 @@ namespace LogicWorkflowManagement
 
             //Get the specified workflow resource - this actually just creates a "placeholder" that is not necessarily valid
             LogicWorkflowResource Workflow = Client.GetLogicWorkflowResource(WorkflowIdentifier);
-
-            if(Workflow is not null)
-            {
-                Workflow = Workflow.EnsureData();
-            }
 
             return Workflow;
         }        
