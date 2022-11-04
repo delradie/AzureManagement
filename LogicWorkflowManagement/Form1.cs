@@ -22,6 +22,7 @@ namespace LogicWorkflowManagement
         private void buttonGet_Click(object sender, EventArgs e)
         {
             textBoxOut.Clear();
+            listBoxWorkflows.Items.Clear();
 
             if (String.IsNullOrWhiteSpace(textBoxSubscriptionId.Text) ||
                 String.IsNullOrWhiteSpace(textBoxResourceGroup.Text) ||
@@ -48,10 +49,8 @@ namespace LogicWorkflowManagement
             {
                 textBoxOut.Text = $"{LogicApps.Count()} Logic Apps Returned:{Environment.NewLine + Environment.NewLine}";
 
-                foreach (LogicWorkflowResource LogicApp in LogicApps)
-                {
-                    textBoxOut.Text += $"{LogicApp.Id} : {LogicApp.Data.Name}{Environment.NewLine}";
-                }
+                listBoxWorkflows.DataSource = LogicApps.Cast<LogicWorkflowResource>().ToList();
+                listBoxWorkflows.DisplayMember = "Id";
             }
         }
 

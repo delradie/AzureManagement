@@ -42,6 +42,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxAuthAppKey = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.listBoxWorkflows = new System.Windows.Forms.ListBox();
+            this.buttonAddWorkflow = new System.Windows.Forms.Button();
+            this.buttonDeleteWorkflow = new System.Windows.Forms.Button();
+            this.buttonEditWorkflow = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -131,14 +135,13 @@
             // 
             // textBoxOut
             // 
-            this.textBoxOut.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxOut.Location = new System.Drawing.Point(104, 210);
             this.textBoxOut.Multiline = true;
             this.textBoxOut.Name = "textBoxOut";
             this.textBoxOut.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxOut.Size = new System.Drawing.Size(684, 228);
+            this.textBoxOut.Size = new System.Drawing.Size(684, 58);
             this.textBoxOut.TabIndex = 9;
             // 
             // textBoxAuthAppId
@@ -177,11 +180,57 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "Auth App Key";
             // 
+            // listBoxWorkflows
+            // 
+            this.listBoxWorkflows.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxWorkflows.FormattingEnabled = true;
+            this.listBoxWorkflows.ItemHeight = 15;
+            this.listBoxWorkflows.Location = new System.Drawing.Point(104, 274);
+            this.listBoxWorkflows.Name = "listBoxWorkflows";
+            this.listBoxWorkflows.Size = new System.Drawing.Size(684, 139);
+            this.listBoxWorkflows.TabIndex = 14;
+            // 
+            // buttonAddWorkflow
+            // 
+            this.buttonAddWorkflow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAddWorkflow.Location = new System.Drawing.Point(104, 415);
+            this.buttonAddWorkflow.Name = "buttonAddWorkflow";
+            this.buttonAddWorkflow.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddWorkflow.TabIndex = 15;
+            this.buttonAddWorkflow.Text = "Add";
+            this.buttonAddWorkflow.UseVisualStyleBackColor = true;
+            // 
+            // buttonDeleteWorkflow
+            // 
+            this.buttonDeleteWorkflow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDeleteWorkflow.Location = new System.Drawing.Point(266, 415);
+            this.buttonDeleteWorkflow.Name = "buttonDeleteWorkflow";
+            this.buttonDeleteWorkflow.Size = new System.Drawing.Size(75, 23);
+            this.buttonDeleteWorkflow.TabIndex = 16;
+            this.buttonDeleteWorkflow.Text = "Delete";
+            this.buttonDeleteWorkflow.UseVisualStyleBackColor = true;
+            // 
+            // buttonEditWorkflow
+            // 
+            this.buttonEditWorkflow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonEditWorkflow.Location = new System.Drawing.Point(185, 415);
+            this.buttonEditWorkflow.Name = "buttonEditWorkflow";
+            this.buttonEditWorkflow.Size = new System.Drawing.Size(75, 23);
+            this.buttonEditWorkflow.TabIndex = 17;
+            this.buttonEditWorkflow.Text = "Edit";
+            this.buttonEditWorkflow.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonEditWorkflow);
+            this.Controls.Add(this.buttonDeleteWorkflow);
+            this.Controls.Add(this.buttonAddWorkflow);
+            this.Controls.Add(this.listBoxWorkflows);
             this.Controls.Add(this.textBoxAuthAppKey);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxAuthAppId);
@@ -220,5 +269,9 @@
         private Label label5;
         private TextBox textBoxAuthAppKey;
         private Label label6;
+        private ListBox listBoxWorkflows;
+        private Button buttonAddWorkflow;
+        private Button buttonDeleteWorkflow;
+        private Button buttonEditWorkflow;
     }
 }
