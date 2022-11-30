@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Windows.Media.Protection.PlayReady;
+
 namespace LogicWorkflowManagement
 {
     public class LogicAppInterface
@@ -19,24 +21,26 @@ namespace LogicWorkflowManagement
         private String _resourceGroup;
         private TokenCredential _credentials;
 
+        private ArmClient _client;
+
         public LogicAppInterface(String subscriptionId, String resourceGroup, TokenCredential credentials) { 
             this._subscriptionId = subscriptionId;
             this._resourceGroup = resourceGroup;
             this._credentials = credentials;
+
+            //Create an authenticated instance of the core SDK client
+            this._client = new ArmClient(this._credentials);
         }
 
         public LogicWorkflowCollection ListLogicApps()
         {
-            //Create an authenticated instance of the core SDK client
-            ArmClient Client = new ArmClient(this._credentials);
-
             //Generate the resource identified for the resource group
             //Each of the key model types that can be retreived from the API should have an appropriate static CreateResourceIdentifier method
             //  so you don't have to manually figure out the structure
             ResourceIdentifier ResourceGroupIdentifier = ResourceGroupResource.CreateResourceIdentifier(_subscriptionId, _resourceGroup);
 
             //Get a reference to the target Resource Group
-            ResourceGroupResource ResourceGroup = Client.GetResourceGroupResource(ResourceGroupIdentifier);
+            ResourceGroupResource ResourceGroup = this._client.GetResourceGroupResource(ResourceGroupIdentifier);
             LogicWorkflowCollection Workflows = ResourceGroup.GetLogicWorkflows();
 
             return Workflows;
@@ -44,19 +48,47 @@ namespace LogicWorkflowManagement
 
         public LogicWorkflowResource GetLogicWorkflowResource(String name)
         {
-            //Create an authenticated instance of the core SDK client
-            ArmClient Client = new ArmClient(this._credentials);
-
             //Generate the resource identified for the workflow
             //Each of the key model types that can be retreived from the API should have an appropriate static CreateResourceIdentifier method
             //  so you don't have to manually figure out the structure
             ResourceIdentifier WorkflowIdentifier = LogicWorkflowResource.CreateResourceIdentifier(_subscriptionId, _resourceGroup, name);
 
             //Get the specified workflow resource - this actually just creates a "placeholder" that is not necessarily valid
-            LogicWorkflowResource Workflow = Client.GetLogicWorkflowResource(WorkflowIdentifier);
+            LogicWorkflowResource Workflow = this._client.GetLogicWorkflowResource(WorkflowIdentifier);
 
             return Workflow;
-        }        
+        }     
+        
+        public LogicWorkflowResource SetLogicWorkflowResource(String name, String definition, String azureLocation)
+        {
+            AzureLocation Location = new AzureLocation(azureLocation);
+
+            LogicWorkflowCollection ResourceGroupWorkflows = ListLogicApps();
+
+            LogicWorkflowResource? TargetResource = ResourceGroupWorkflows.FirstOrDefault(x => String.Equals(x.Id.Name, name, StringComparison.InvariantCultureIgnoreCase));
+
+            if (TargetResource is not null)
+            {
+                TargetResource.EnsureData();
+
+                TargetResource.Data.Definition = BinaryData.FromString(definition);
+
+                TargetResource.Update();
+
+                return TargetResource;
+            }
+            else
+            {
+                LogicWorkflowData WorkflowData = new LogicWorkflowData(Location)
+                {
+                    Definition = BinaryData.FromString(definition),
+                };
+
+                ArmOperation<LogicWorkflowResource> Response = ResourceGroupWorkflows.CreateOrUpdate(WaitUntil.Completed, name, WorkflowData);
+
+                return Response.Value;
+            }
+        }
     }
 
     /// <summary>

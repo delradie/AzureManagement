@@ -36,14 +36,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonCreate = new System.Windows.Forms.Button();
+            this.comboBoxLocation = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxDefinition
             // 
-            this.textBoxDefinition.Location = new System.Drawing.Point(12, 80);
+            this.textBoxDefinition.Location = new System.Drawing.Point(12, 134);
             this.textBoxDefinition.Multiline = true;
             this.textBoxDefinition.Name = "textBoxDefinition";
-            this.textBoxDefinition.Size = new System.Drawing.Size(776, 314);
+            this.textBoxDefinition.Size = new System.Drawing.Size(776, 260);
             this.textBoxDefinition.TabIndex = 0;
             // 
             // labelID
@@ -59,18 +61,18 @@
             // 
             this.textBoxID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxID.Location = new System.Drawing.Point(53, 7);
+            this.textBoxID.Location = new System.Drawing.Point(67, 7);
             this.textBoxID.Name = "textBoxID";
-            this.textBoxID.Size = new System.Drawing.Size(735, 23);
+            this.textBoxID.Size = new System.Drawing.Size(721, 23);
             this.textBoxID.TabIndex = 2;
             // 
             // textBoxName
             // 
             this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxName.Location = new System.Drawing.Point(53, 36);
+            this.textBoxName.Location = new System.Drawing.Point(67, 36);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(735, 23);
+            this.textBoxName.Size = new System.Drawing.Size(721, 23);
             this.textBoxName.TabIndex = 4;
             // 
             // label1
@@ -85,7 +87,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 62);
+            this.label2.Location = new System.Drawing.Point(8, 104);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 15);
             this.label2.TabIndex = 5;
@@ -111,11 +113,32 @@
             this.buttonCreate.UseVisualStyleBackColor = true;
             this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
             // 
+            // comboBoxLocation
+            // 
+            this.comboBoxLocation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLocation.FormattingEnabled = true;
+            this.comboBoxLocation.Location = new System.Drawing.Point(67, 73);
+            this.comboBoxLocation.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxLocation.Name = "comboBoxLocation";
+            this.comboBoxLocation.Size = new System.Drawing.Size(721, 23);
+            this.comboBoxLocation.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 76);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 15);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Location";
+            // 
             // WorkflowEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBoxLocation);
             this.Controls.Add(this.buttonCreate);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.label2);
@@ -126,6 +149,7 @@
             this.Controls.Add(this.textBoxDefinition);
             this.Name = "WorkflowEditor";
             this.Text = "WorkflowEditor";
+            this.Load += new System.EventHandler(this.WorkflowEditor_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,5 +165,7 @@
         private Label label2;
         private Button buttonUpdate;
         private Button buttonCreate;
+        private ComboBox comboBoxLocation;
+        private Label label3;
     }
 }

@@ -1,15 +1,5 @@
-﻿using Azure.ResourceManager;
+﻿using Azure.Core;
 using Azure.ResourceManager.Logic;
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace LogicWorkflowManagement
 {
@@ -23,6 +13,11 @@ namespace LogicWorkflowManagement
             this._managementInterface = managementInterface;
 
             InitializeComponent();
+
+            this.buttonCreate.Enabled = true;
+            this.buttonUpdate.Enabled = false;
+
+            DisplayDefinition();
         }
 
         public WorkflowEditor(LogicAppInterface managementInterface, LogicWorkflowResource targetWorkflow)
@@ -32,7 +27,9 @@ namespace LogicWorkflowManagement
 
             InitializeComponent();
 
-            DisplayDefinition();
+            this.buttonCreate.Enabled = false;
+            this.buttonUpdate.Enabled = true;
+
         }
 
         private void DisplayDefinition()
@@ -40,16 +37,37 @@ namespace LogicWorkflowManagement
             textBoxDefinition.Text = _targetWorkflow?.Data?.Definition?.ToString();
             textBoxID.Text = _targetWorkflow?.Data?.Id?.ToString();
             textBoxName.Text = _targetWorkflow?.Data?.Name?.ToString();
+
+            List<String> Locations = LocationHelper.GetAzureLocationNames().ToList();
+
+            comboBoxLocation.DataSource = Locations;
+
+            if (!String.IsNullOrWhiteSpace(_targetWorkflow?.Data?.Location.Name))
+            {
+                String? LocationName = Locations.FirstOrDefault(x => String.Equals(x, _targetWorkflow.Data.Location.Name, StringComparison.InvariantCultureIgnoreCase));
+                
+                if(!String.IsNullOrWhiteSpace(LocationName))
+                    comboBoxLocation.SelectedItem = LocationName;
+            }
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
+            AzureLocation TargetLocation = new AzureLocation(comboBoxLocation.SelectedItem as String);
 
+            this._managementInterface.SetLogicWorkflowResource(textBoxName.Text, textBoxDefinition.Text, TargetLocation);
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
+            AzureLocation TargetLocation = new AzureLocation(comboBoxLocation.SelectedItem as String);
 
+            this._managementInterface.SetLogicWorkflowResource(textBoxName.Text, textBoxDefinition.Text, TargetLocation);
+        }
+
+        private void WorkflowEditor_Load(object sender, EventArgs e)
+        {
+            DisplayDefinition();
         }
     }
 }
