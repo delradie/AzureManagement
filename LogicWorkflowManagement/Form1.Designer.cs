@@ -201,6 +201,7 @@
             this.buttonAddWorkflow.TabIndex = 15;
             this.buttonAddWorkflow.Text = "Add";
             this.buttonAddWorkflow.UseVisualStyleBackColor = true;
+            this.buttonAddWorkflow.Click += new System.EventHandler(this.buttonAddWorkflow_Click);
             // 
             // buttonDeleteWorkflow
             // 

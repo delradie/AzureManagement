@@ -110,5 +110,13 @@ namespace LogicWorkflowManagement
                 Editor.ShowDialog(this);
             }
         }
+
+        private void buttonAddWorkflow_Click(object sender, EventArgs e)
+        {
+            WorkflowEditor Editor = new WorkflowEditor(this._managementInterface);
+
+            Editor.ShowDialog(this);
+
+        }
     }
 }
