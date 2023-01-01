@@ -212,6 +212,7 @@
             this.buttonDeleteWorkflow.TabIndex = 16;
             this.buttonDeleteWorkflow.Text = "Delete";
             this.buttonDeleteWorkflow.UseVisualStyleBackColor = true;
+            this.buttonDeleteWorkflow.Click += new System.EventHandler(this.buttonDeleteWorkflow_Click);
             // 
             // buttonEditWorkflow
             // 

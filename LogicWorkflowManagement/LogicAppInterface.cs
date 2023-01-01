@@ -75,6 +75,15 @@ namespace LogicWorkflowManagement
 
             return Response.Value;
         }
+
+        public void DeleteWorkflow(String name)
+        {
+            ResourceIdentifier WorkflowIdentifier = LogicWorkflowResource.CreateResourceIdentifier(_subscriptionId, _resourceGroup, name);
+
+            LogicWorkflowResource TargetResource = this._client.GetLogicWorkflowResource(WorkflowIdentifier);
+
+            ArmOperation Result = TargetResource.Delete(WaitUntil.Completed);
+        }
     }
 
     /// <summary>

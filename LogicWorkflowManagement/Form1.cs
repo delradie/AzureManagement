@@ -118,5 +118,22 @@ namespace LogicWorkflowManagement
             Editor.ShowDialog(this);
 
         }
+
+        private void buttonDeleteWorkflow_Click(object sender, EventArgs e)
+        {
+            LogicWorkflowResource? SelectedWorkflow = (listBoxWorkflows.SelectedItem as LogicWorkflowResource)?.EnsureData();
+
+            if (SelectedWorkflow is not null)
+            {
+                SelectedWorkflow.EnsureData();
+
+                DialogResult Result = MessageBox.Show($"Are you sure you wish to delete workflow {SelectedWorkflow.Data.Name}?", "Delete Workflow", MessageBoxButtons.YesNo);
+
+                if(Result == DialogResult.Yes)
+                {
+                    this._managementInterface.DeleteWorkflow(SelectedWorkflow.Data.Name);
+                }
+            }
+        }        
     }
 }
