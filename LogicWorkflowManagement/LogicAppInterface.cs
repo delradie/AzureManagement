@@ -23,7 +23,8 @@ namespace LogicWorkflowManagement
 
         private ArmClient _client;
 
-        public LogicAppInterface(String subscriptionId, String resourceGroup, TokenCredential credentials) { 
+        public LogicAppInterface(String subscriptionId, String resourceGroup, TokenCredential credentials)
+        {
             this._subscriptionId = subscriptionId;
             this._resourceGroup = resourceGroup;
             this._credentials = credentials;
@@ -57,37 +58,22 @@ namespace LogicWorkflowManagement
             LogicWorkflowResource Workflow = this._client.GetLogicWorkflowResource(WorkflowIdentifier);
 
             return Workflow;
-        }     
-        
+        }
+
         public LogicWorkflowResource SetLogicWorkflowResource(String name, String definition, String azureLocation)
         {
             AzureLocation Location = new AzureLocation(azureLocation);
 
             LogicWorkflowCollection ResourceGroupWorkflows = ListLogicApps();
 
-            LogicWorkflowResource? TargetResource = ResourceGroupWorkflows.FirstOrDefault(x => String.Equals(x.Id.Name, name, StringComparison.InvariantCultureIgnoreCase));
-
-            if (TargetResource is not null)
+            LogicWorkflowData WorkflowData = new LogicWorkflowData(Location)
             {
-                TargetResource.EnsureData();
+                Definition = BinaryData.FromString(definition),
+            };
 
-                TargetResource.Data.Definition = BinaryData.FromString(definition);
+            ArmOperation<LogicWorkflowResource> Response = ResourceGroupWorkflows.CreateOrUpdate(WaitUntil.Completed, name, WorkflowData);
 
-                TargetResource.Update();
-
-                return TargetResource;
-            }
-            else
-            {
-                LogicWorkflowData WorkflowData = new LogicWorkflowData(Location)
-                {
-                    Definition = BinaryData.FromString(definition),
-                };
-
-                ArmOperation<LogicWorkflowResource> Response = ResourceGroupWorkflows.CreateOrUpdate(WaitUntil.Completed, name, WorkflowData);
-
-                return Response.Value;
-            }
+            return Response.Value;
         }
     }
 
@@ -103,7 +89,7 @@ namespace LogicWorkflowManagement
         /// <returns>A fully data-populated worflow if valid, or null if not</returns>
         public static LogicWorkflowResource EnsureData(this LogicWorkflowResource source)
         {
-            if(source.HasData)
+            if (source.HasData)
             {
                 return source;
             }
@@ -114,7 +100,7 @@ namespace LogicWorkflowManagement
 
                 return FullResponse.Value;
             }
-            catch(RequestFailedException)
+            catch (RequestFailedException)
             {
                 return null;
             }
