@@ -82,7 +82,7 @@ namespace LogicWorkflowManagement
 
             LogicWorkflowResource TargetResource = this._client.GetLogicWorkflowResource(WorkflowIdentifier);
 
-            ArmOperation Result = TargetResource.Delete(WaitUntil.Completed);
+            TargetResource.Delete(WaitUntil.Completed);
         }
     }
 
